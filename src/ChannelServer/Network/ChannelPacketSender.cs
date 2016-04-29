@@ -1794,6 +1794,22 @@ namespace Melia.Channel.Network
 			character.Connection.Send(packet);
 		}
 
+		/// <summary>
+		/// Sets a list of items, by sending ZC_SOLD_ITEM_LIST to
+		/// character's connection.
+		/// </summary>
+		/// <param name="conn"></param>
+		public static void ZC_SOLD_ITEM_LIST(Character character, InventoryType type, IList<Item> items)
+		{
+			var packet = new Packet(Op.ZC_SOLD_ITEM_LIST);
+			packet.PutByte((byte)type);
+			packet.PutInt(items.Count);
+			packet.PutByte(1);
+
+			for (int i = 0; i < items.Count; ++i)
+				packet.AddItem(items[i], i);
+		}
+
 		public static void DUMMY(ChannelConnection conn)
 		{
 		}
