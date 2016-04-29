@@ -466,17 +466,7 @@ namespace Melia.Channel.Network
 			packet.PutInt(items.Count);
 			packet.PutShort(0); // Compression
 			foreach (var item in items)
-			{
-				packet.PutInt(item.Value.Id);
-				packet.PutShort(0); // Size of the object at the end
-				packet.PutEmptyBin(2);
-				packet.PutLong(item.Value.WorldId);
-				packet.PutInt(item.Value.Amount);
-				packet.PutInt(item.Value.Price);
-				packet.PutInt(item.Key);
-				packet.PutInt(1); // ?
-				//packet.PutEmptyBin(0);
-			}
+				packet.AddItem(item.Value, item.Key);
 
 			character.Connection.Send(packet);
 		}
